@@ -7,5 +7,6 @@
   <ItemGroup>
     <PackageReference Include="Selenium.WebDriver" Version="3.141.0"/>
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="86.0.4240.2200"/>
+    <PackageReference Include="TweetinviAPI" Version="5.0.3"/>
   </ItemGroup>
 </Project>

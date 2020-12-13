@@ -7,17 +7,17 @@ namespace Almostengr.smautomation
     {
         public void RunAutomation()
         {
-            AeBlogPostProcessor websiteProcessor = new AeBlogPostProcessor();
-            AeBlogPost latestWebPost = websiteProcessor.GetLatestPost();
+            // AeBlogPostProcessor websiteProcessor = new AeBlogPostProcessor();
+            // AeBlogPost latestWebPost = websiteProcessor.GetLatestPost();
 
             // Console.WriteLine(latestWebPost.Article);
-            Console.WriteLine(latestWebPost.Category);
-            Console.WriteLine(latestWebPost.Description);
-            Console.WriteLine(latestWebPost.BlogImageUrl);
-            Console.WriteLine(latestWebPost.Posted);
-            Console.WriteLine(latestWebPost.Title);
-            // Console.WriteLine(latestWebPost.Updated);
-            Console.WriteLine(latestWebPost.Keywords);
+            // Console.WriteLine(latestWebPost.Category);
+            // Console.WriteLine(latestWebPost.Description);
+            // Console.WriteLine(latestWebPost.BlogImageUrl);
+            // Console.WriteLine(latestWebPost.Posted);
+            // Console.WriteLine(latestWebPost.Title);
+            // // Console.WriteLine(latestWebPost.Updated);
+            // Console.WriteLine(latestWebPost.Keywords);
 
             // YouTubeProcessor youTubeProcessor = new YouTubeProcessor();
             // YouTubeVideo youTubeVideo = youTubeProcessor.GetLatestVideo();
@@ -27,6 +27,12 @@ namespace Almostengr.smautomation
             // Console.WriteLine(youTubeVideo.ThumbnailUrl);
             // Console.WriteLine(youTubeVideo.Url);
             // Console.WriteLine(youTubeVideo.Description);
+
+
+            InstagramProcessor igProcessor = new InstagramProcessor();
+            igProcessor.LoginInstagram();
+            igProcessor.LikeHashtagPosts();
+            igProcessor.CloseBrowser();
         }
 
         public string KeywordsToHashtags(string keywords, int maxTags = 20)
