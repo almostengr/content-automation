@@ -1,15 +1,33 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-namespace Almostengr.smautomation
+namespace Almostengr.SmAutomation
 {
-    public class InstagramProcessor
+    public class InstagramProcessor : BackgroundService
     {
 
         IWebDriver driver = null;
+        private readonly ILogger<InstagramProcessor> _logger;
+
+        public InstagramProcessor(ILogger<InstagramProcessor> logger)
+        {
+            _logger = logger;
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                await Task.Delay(1000, stoppingToken);
+            }
+        }
 
         public void LoginInstagram()
         {
@@ -29,7 +47,6 @@ namespace Almostengr.smautomation
                 // first time for save login, second for notifications
                 driver.FindElement(By.XPath("//button[text()='Not Now']")).Click();
             }
-
         }
 
         public void CloseBrowser()
@@ -81,7 +98,7 @@ namespace Almostengr.smautomation
                     }
                     catch (NoSuchElementException)
                     {
-                        Logger.LogMessage("Did not find Like button. Perhaps image already liked.");
+                        _logger.LogInformation("Did not find Like button. Perhaps image already liked.");
                     }
 
                     driver.FindElement(By.CssSelector("[aria-label='Close']")).Click();

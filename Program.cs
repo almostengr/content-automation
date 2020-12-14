@@ -1,12 +1,28 @@
-﻿namespace Almostengr.smautomation
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+namespace Almostengr.SmAutomation
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Logger.LogMessage("Starting application");
-            AutomationControl control = new AutomationControl();
-            control.RunAutomation();
+            CreateHostBuilder(args).Build().Run();
         }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(
+                    builder => new ConfigurationBuilder()
+                    .AddJsonFile("appsettings.json", true, true)
+                    .AddEnvironmentVariables()
+                )
+                .ConfigureServices((hostContext, services) =>
+                {
+                    // services.AddHostedService<TaeWorker>();
+                    // services.AddHostedService<YouTubeWorker>();
+                    services.AddHostedService<TwitterWorker>();
+                });
     }
 }
